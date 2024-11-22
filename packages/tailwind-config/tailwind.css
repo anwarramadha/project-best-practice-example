@@ -1,0 +1,25 @@
+@import '@sutekitechid/flowbite-vue/dist/style.css';
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-grey-90 rounded;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-grey-20 hover:bg-grey-30;
+}
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield !important;
+         appearance: textfield !important;
+  }
+}
