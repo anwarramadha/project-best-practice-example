@@ -1,5 +1,8 @@
 // 3rd's
 import { $fetch, FetchOptions } from 'ofetch';
+import fetchCollegeId from '../multisite/multisite-config'
+import origin from '../multisite/origin'
+import type { Multisite } from '../types/multisite';
 // import { useRuntimeConfig } from 'vue';
 
 // locals
@@ -9,16 +12,19 @@ interface IApiInstance {
   slide: SlideModule;
 }
 
-console.log('SlideModule', process);
-
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(async (nuxtApp) => {
   const config = useRuntimeConfig();
-  console.log('API KEY', config);
+
+  // fetch college id from multisite-config
+  const host = origin();
+  const multisiteConfig: Multisite = await fetchCollegeId(host);
 
   const fetchOptions: FetchOptions = {
+    baseURL: host,
     headers: {
         'Content-Type': 'application/json',
-        'api-key': "4Qe7h5NcgCu1EPDzCKIO"
+        'api-key': "4Qe7h5NcgCu1EPDzCKIO",
+        'college-id': multisiteConfig.college_id
     }
   };
 

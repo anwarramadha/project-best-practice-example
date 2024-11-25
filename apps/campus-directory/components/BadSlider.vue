@@ -9,10 +9,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, unref } from 'vue'
+import { computed } from 'vue'
+import type { ComputedRef } from 'vue'
 import { useFetch } from 'nuxt/app';
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
+import { Slide } from '@sutekitechid/types/slide'
 // console.log(process)
 const { data, execute } = useFetch<Slide[]>('/api/open/banner/all?position=home-banner', {
   watch: false,
@@ -23,27 +25,19 @@ const { data, execute } = useFetch<Slide[]>('/api/open/banner/all?position=home-
   },
 })
 
-interface Slide {
-  id: number
-  title: string
-  description: string
-  image: string
-  link: string
-  position: string
-  status: string
-  createdAt: string
-  updatedAt: string
+// console.log(slideReq)
+const fetchData = async () => {
+  await execute()
+  console.log(data)
 }
 
-// console.log(slideReq)
-await execute()
-console.log(data)
+fetchData()
 
-const slides: Slide[] = computed(() => {
+const slides: ComputedRef<Slide[]> = computed(() => {
   const result: Slide[] = []
   if (data) {
     console.log('slides', data)
-    data?.value?.data?.forEach((slide: Slide) => {
+    data?.value?.forEach((slide: Slide) => {
       result.push({
         id: slide.id,
         title: slide.title,
