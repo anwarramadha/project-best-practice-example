@@ -10,6 +10,8 @@
 </template>
 
 <script setup lang="ts">
+// import { SInput } from '@sutekitechid/flowbite-vue'
+
 defineProps({
   placeholder: String,
   class: String,

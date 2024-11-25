@@ -44,7 +44,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss',
-    '@sutekitechid/project-best-practices-example'
+    '@sutekitechid/project-best-practices-example',
+    '@nuxt/test-utils/module'
   ],
   tailwindcss: {},
   vite: {
