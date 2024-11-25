@@ -6,10 +6,12 @@
   "scripts": {
     "test": "pnpm lint:js",
     "campus-directory": "pnpm --filter @project-best-practices-example/campus-directory",
+    "common-components-test": "pnpm --filter @project-best-practices-example/common-components-test",
     "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .prettierignore .",
     "lint": "pnpm lint:js",
     "lintfix": "eslint --fix --ext .js,.jsx,.vue --ignore-path .prettierignore .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:all": "pnpm campus-directory test && pnpm common-components-test"
   },
   "keywords": [],
   "author": "",
