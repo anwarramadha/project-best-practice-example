@@ -1,5 +1,10 @@
 
 const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https'
+
+/*
+  * Get origin
+  * @returns The origin of the request. SSR will return the host from the headers (ussually configured from neginx), otherwise it will return the window location origin.
+*/
 const getOrigin = () => {
   if (typeof window === 'undefined') {
     const headers = useRequestHeaders()

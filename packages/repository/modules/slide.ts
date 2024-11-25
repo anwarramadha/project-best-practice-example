@@ -12,6 +12,15 @@ class SlideModule extends HttpFactory {
     super(fetcher);
   }
 
+  /**
+   * Get slides
+   * @returns The slides
+   *  
+   * @example
+   * const slides = await api.slide.getSlides();
+   * console.log(slides);
+   * 
+  */
   async getSlides(): Promise<SlideResponse> {
     return await this.call<SlideResponse>('GET', this.url);
   }

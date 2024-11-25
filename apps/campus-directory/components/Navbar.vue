@@ -12,6 +12,10 @@
   </template>
   
   <script lang="ts" setup>
+  /**
+   * Navbar component
+   * @displayName Navbar
+   */
   import NavbarSearchInput from './NavbarSearchInput.vue';
   import NavbarLoginButton from './NavbarLoginButton.vue';
   import NavbarRegisterButton from './NavbarRegisterButton.vue';

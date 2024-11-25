@@ -10,7 +10,10 @@
 </template>
 
 <script setup lang="ts">
-// import { SInput } from '@sutekitechid/flowbite-vue'
+/**
+ * SSearchInput is a component that is used to display a search input field.
+ * @displayName SSearchInput
+ */
 
 defineProps({
   placeholder: String,
