@@ -1,25 +1,26 @@
-// 3rd's
-import { $fetch, FetchOptions } from 'ofetch';
 import fetchCollegeId from '../multisite/multisite-config'
 import origin from '../multisite/origin'
 import type { Multisite } from '../types/multisite';
 // import { useRuntimeConfig } from 'vue';
 
 // locals
+// @ts-ignore
 import SlideModule from '@sutekitechid/project-best-practices-example/repository/modules/slide';
 
 interface IApiInstance {
   slide: SlideModule;
 }
 
+// @ts-ignore
 export default defineNuxtPlugin(async (nuxtApp) => {
+  // @ts-ignore
   const config = useRuntimeConfig();
 
   // fetch college id from multisite-config
   const host = origin();
   const multisiteConfig: Multisite = await fetchCollegeId(host);
 
-  const fetchOptions: FetchOptions = {
+  const fetchOptions = {
     baseURL: host,
     headers: {
         'Content-Type': 'application/json',
@@ -33,7 +34,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
   // An object containing all repositories we need to expose
   const modules: IApiInstance = {
-    slide: new SlideModule(apiFecther),
+    slide: new SlideModule(fetchOptions),
   };
 
   return {

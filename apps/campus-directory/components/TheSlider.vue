@@ -1,5 +1,5 @@
 <template>
-  <SSlider :slides="slides" />
+	<SSlider :slides="slides" />
 </template>
 
 <script setup>
@@ -8,29 +8,32 @@
  * @displayName Slider
  */
 import SSlider from '@sutekitechid/project-best-practices-example/components/commons/SSlider.vue'
-import { useNuxtApp } from 'nuxt/app';
+import { useNuxtApp } from 'nuxt/app'
 
 const { $api } = useNuxtApp()
 
-const slideResp = await $api.slide.getSlides()
+const { data, pending, error, execute } = await $api.slide.getSlides()
+execute()
+
+console.log('slideResp', data.value, pending.value, error.value)
 
 const slides = computed(() => {
-  const result = []
-  if (slideResp) {
-    slideResp?.data?.forEach((slide) => {
-      result.push({
-        id: slide.id,
-        title: slide.title,
-        description: slide.description,
-        image: `https://apicampusdir.civitas.id${slide.image}`,
-        link: slide.link,
-        position: slide.position,
-        status: slide.status,
-        createdAt: slide.createdAt,
-        updatedAt: slide.updatedAt,
-      })
-    })
-  }
-  return result
+	const result = []
+	if (data.value) {
+		data.value?.data?.forEach(slide => {
+			result.push({
+				id: slide.id,
+				title: slide.title,
+				description: slide.description,
+				image: `https://apicampusdir.civitas.id${slide.image}`,
+				link: slide.link,
+				position: slide.position,
+				status: slide.status,
+				createdAt: slide.createdAt,
+				updatedAt: slide.updatedAt,
+			})
+		})
+	}
+	return result
 })
 </script>

@@ -1,16 +1,13 @@
 import HttpFactory from '../factory';
 import { Slide } from '../../types/slide';
+import { response } from '../../types/response';
 
-type SlideResponse = {
+interface SlideResponse extends response {
   data: Slide[];
-};
+}
 
 class SlideModule extends HttpFactory {
   private url = '/api/open/banner/all?position=home-banner';
-
-  constructor(fetcher: any) {
-    super(fetcher);
-  }
 
   /**
    * Get slides
@@ -22,7 +19,8 @@ class SlideModule extends HttpFactory {
    * 
   */
   async getSlides(): Promise<SlideResponse> {
-    return await this.call<SlideResponse>('GET', this.url);
+    const { data, pending, error, execute } = await this.call<SlideResponse>('GET', this.url);
+    return { data, pending, error, execute };
   }
 }
 
