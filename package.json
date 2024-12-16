@@ -28,7 +28,8 @@
     "eslint-plugin-vue": "^9.11.0",
     "husky": "^8.0.3",
     "sass": "^1.62.1",
-    "vite-svg-loader": "^4.0.0"
+    "vite-svg-loader": "^4.0.0",
+    "vue-docgen-api": "^4.79.2"
   },
   "dependencies": {
     "@sutekitechid/flowbite-vue": "1.0.33",
