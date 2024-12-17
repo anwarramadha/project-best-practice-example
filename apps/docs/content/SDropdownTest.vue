@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts">
-import { test } from '@sutekitechid/project-best-practices-example/utils/test'
 /**
  * SDropdownTest is a component that is used to display a dropdown.
  * @displayName SDropdownTest
@@ -35,7 +34,6 @@ export default {
 		},
 	},
 	setup() {
-		test()
 		return {}
 	},
 	emits: [

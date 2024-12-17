@@ -4,7 +4,6 @@ const colors = require("tailwindcss/colors")
 module.exports = {
   content: [
     '../../node_modules/@sutekitechid/flowbite-vue/**/*.{vue,js,jsx,ts,tsx, mjs}',
-    '../../node_modules/flowbite/**/*.{js,ts}',
     '../../node_modules/@sutekitechid/project-best-practices-example/**/*.{vue,js,jsx,ts,tsx, mjs}'
   ],
   theme: {

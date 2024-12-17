@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import dotEnvExtended from 'dotenv-extended'
 import viteCompression from 'vite-plugin-compression'
-import { resolve } from 'node:path'
 
 dotEnvExtended.load({
   path: '../../.env',
@@ -46,12 +45,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@sutekitechid/project-best-practices-example',
-    '@nuxt/test-utils/module',
-    '@nuxt/content'
-  ],components: {
-     global: true,
-    dirs: ['~/docs/components', '~/docs/commons/components']
-        },
+    '@nuxt/test-utils/module'
+  ],
   tailwindcss: {},
   vite: {
     server: {
@@ -88,15 +83,5 @@ export default defineNuxtConfig({
       MULTISITE_SERVICE_ID: process.env.MULTISITE_SERVICE_ID || 'pmb'
     },
     API_KEY: process.env.API_KEY
-  },
-  content: {
-    sources: {
-      content: {
-        driver: 'fs',
-        prefix: '/docs/campus-directory',
-        base: resolve(__dirname, 'docs'),
-        dir: 'docs'
-      }
-    }
   }
 } as NuxtConfig)

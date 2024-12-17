@@ -2,7 +2,6 @@ const fs = require('fs')
 const { parse } = require('vue-docgen-api')
 const iterator = require('../../utils/file-iterator')
 const {kebabCase} = require('lodash')
-const { JSDOM } = require('jsdom')
 const htmlparser2 = require("htmlparser2")
 
 const docsGenerator = (inputPath, outputPath) => iterator(inputPath, (error) => {
@@ -31,9 +30,10 @@ const writeToMarkdown = (file, outputPath) => {
 }
 
 const generateMarkdown = (component) => {
-    return `
-# ${component.displayName}
-${component.description}
+    return `---
+title: ${component.displayName}
+description: ${component.description}
+---
 ${generateImport(component.tags?.import)}
 ${generateProps(component.props)}
 ${generateEvents(component.events)}

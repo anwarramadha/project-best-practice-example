@@ -6,6 +6,7 @@
   "scripts": {
     "test": "pnpm lint:js",
     "campus-directory": "pnpm --filter @project-best-practices-example/campus-directory",
+    "component-docs": "pnpm --filter @project-best-practices-example/component-docs",
     "common-components-test": "pnpm --filter @project-best-practices-example/common-components-test",
     "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .prettierignore .",
     "lint": "pnpm lint:js",
