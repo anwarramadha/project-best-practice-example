@@ -23,12 +23,12 @@ import { SInput } from '@sutekitechid/flowbite-vue'
 
 
 ## Example
-
-        <SSearchInput @input="onInput" placeholder="Search" />
+```vue
+<SSearchInput @input="onInput" placeholder="Search" />
+```
     
-    
 
-## Component Example
-::SSearchInput{input="onInput" placeholder="Search"}
-::
+
+## Component View
+::SSearchInput{ placeholder='Search'}
     

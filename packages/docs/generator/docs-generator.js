@@ -2,6 +2,8 @@ const fs = require('fs')
 const { parse } = require('vue-docgen-api')
 const iterator = require('../../utils/file-iterator')
 const {kebabCase} = require('lodash')
+const { JSDOM } = require('jsdom')
+const htmlparser2 = require("htmlparser2")
 
 const docsGenerator = (inputPath, outputPath) => iterator(inputPath, (error) => {
     if (error) {
@@ -23,10 +25,7 @@ const copyComponentIntoDocs = (file, outputPath) => {
 
 const writeToMarkdown = (file, outputPath) => {
     parse(file).then((component) => {
-        // console.log(component)
         const markdown = generateMarkdown(component)
-        console.log(markdown)
-
         fs.writeFileSync(`${outputPath}/${kebabCase(component.displayName)}.md`, markdown)
     })
 }
@@ -80,14 +79,24 @@ const generateSlots = (slots) => {
     }
     return `
 ## Slots
-| Name | Description |
-| ---- | ----------- |
+| Name | Description | Props (if any) |
+| ---- | ----------- | -------------- |
 ${Object.keys(slots).map((key) => {
     const slot = slots[key]
-    return `| ${slot.name} | ${slot.description || ''} |`
+    return `| ${slot.name} | ${slot.description || ''} | ${generateSlotProps(slot.bindings)} |`
 }).join('\n')}
     `
 }
+
+const generateSlotProps = (props) => {
+    if (!props) {
+        return ''
+    }
+    return `${props.map((prop) => {
+        return `\`${prop.name}\`: ${prop.description}`
+    }).join('\n')}`
+}
+
 
 const generateMethods = (methods) => {
     if (!methods) {
@@ -110,11 +119,11 @@ const generateExample = (examples) => {
     }
     return `
 ## Example
+\`\`\`vue
 ${examples.map((example) => {
-    return `
-        ${example.content}
-    `
+    return example.content
 }).join('\n')}
+\`\`\`
     `
 }
 
@@ -134,20 +143,30 @@ const generateMarkdownComponent = (example) => {
     if (!example) {
         return ''
     }
-    
-    // get all component tags
-    const componentTags = example[0].content.match(/<\w+/g)
-    // get all component names
-    const componentNames = componentTags.map((tag) => tag.replace('<', ''))
-    // get all component properties (component props are the value in the tag without @ symbol followed by the value, e.g. placeholder="Enter your name" would be placeholder)
-    const componentProperties = example[0].content.match(/\w+(?==)/g)
-    // get all component prop values
-    const componentPropValues = example[0].content.match(/"\w+"/g)
 
-    return `
-## Component Example
-::${componentNames[0]}${componentProperties ? `{${componentProperties?.map((prop, index) => `${prop}=${componentPropValues[index]}`).join(' ')}}` : ''}
-::
+    let result = ''
+    let indent = ''
+    // parse string into html
+    const parser = new htmlparser2.Parser({
+        onopentag(name, attribs) {
+            const attributes = Object.keys(attribs).map((key) => key.startsWith('@') ? '' : `${key}='${attribs[key].replaceAll('\'', '"')}'`).join(' ')
+            result += `${indent}::${name}${attribs ? `{${attributes}}` : ''}`
+            indent += ' '
+        },
+        ontext(text) {
+            result += `\n${indent}  ${text}`
+        },
+        onclosetag(tagname) {
+            indent = indent.slice(0, -1)
+            result += `\n${indent}::`
+        }
+    }, {decodeEntities: true, lowerCaseTags: false})
+
+    parser.write(example[0].content)
+
+    return `\n
+## Component View
+${result}
     `
 }
 

@@ -1,8 +1,11 @@
 <template>
 	<SDropdown>
-		<SDropdownItem>Item 1</SDropdownItem>
-		<SDropdownItem>Item 2</SDropdownItem>
-		<SDropdownItem>Item 3</SDropdownItem>
+		<!--
+            @slot This is a slot
+            @binding item The value of the dropdown.
+        -->
+
+		<slot :item="false" />
 	</SDropdown>
 </template>
 
@@ -15,11 +18,31 @@
  * import { SDropdownTest } from '@sutekitechid/flowbite-vue'
  *
  * @example
- * <SDropdownTest />
+ * <SDropdownTest :options="['1', '2', '3']" @input="onInput">
+ *  <SDropdownTestItem>1</SDropdownTestItem>
+ *  <SDropdownTestItem>2</SDropdownTestItem>
+ * </SDropdownTest>
  */
 export default {
+	props: {
+		/**
+		 * The options of the dropdown.
+		 */
+		options: {
+			type: Array,
+			default: () => [],
+		},
+	},
 	setup() {
 		return {}
 	},
+	emits: [
+		/*
+		 * Emitted when the value of the dropdown changes.
+		 * @event input
+		 * @property {string} value - The value of the dropdown.
+		 */
+		'input',
+	],
 }
 </script>

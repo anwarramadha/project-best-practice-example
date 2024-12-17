@@ -1,5 +1,6 @@
 <template>
 	<SSlider :slides="slides" />
+	<SDropdownTest />
 </template>
 
 <script setup>
@@ -8,6 +9,7 @@
  * @displayName Slider
  */
 import SSlider from '@sutekitechid/project-best-practices-example/components/commons/SSlider.vue'
+import SDropdownTest from '@sutekitechid/project-best-practices-example/components/commons/SDropdownTest.vue'
 import { useNuxtApp } from 'nuxt/app'
 
 const { $api } = useNuxtApp()
